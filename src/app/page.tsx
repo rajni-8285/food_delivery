@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main>
       <nav>
-        <div className="bg-[#000000] text-white space-x-10 flex items-center justify-between">
+        <div className="bg-[#000000] h-10 w-full text-white space-x-10 flex items-center justify-between">
           <Link href="/">PizzaHub</Link>
 
 

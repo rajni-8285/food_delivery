@@ -1,7 +1,11 @@
-export default function home() {
+"use client";
+import { useState } from "react";
+export default function SignIn() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     return (
-        <main className="flex item-center min-h-screen bg-gray-100">
-            <div className="w-full bg-white p-8 rounded-[3px] shadow-md">
+        <main className="flex items-center min-h-screen bg-gray-100">
+            <div className="w-full max-w-md mx-auto bg-white p-8 rounded-[3px] shadow-md">
                 <h1 className="text-[20px] font-bold text-center mb-6">
                     Signin
                 </h1>

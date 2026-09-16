@@ -11,7 +11,7 @@ export default function Home() {
           <div className="flex justify-end text-white space-x-10">
             <Link href="/contact">Contact</Link>
             <Link href="/signin">Sign In</Link>
-            <Link href="/login">Login</Link>
+            <Link href="/signup">SignUp</Link>
           </div>
         </div>
       </nav>

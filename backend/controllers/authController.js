@@ -50,6 +50,65 @@ const registerUser = async (req, res) => {
 };
 
 
+// LOGIN USER
+const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const normalizedEmail = email.trim().toLowerCase();
+        // 1. Check required fields
+        if (!email || !password) {
+            return res.status(400).json({
+                message: "Email and password are required",
+            });
+        }
+
+        // 2. Find user by email
+        const user = await User.findOne({
+            email: normalizedEmail,
+        });
+
+        // 3. Check if user exists
+        if (!user) {
+            return res.status(401).json({
+                message: "Invalid email",
+            });
+        }
+
+        // 4. Compare entered password with hashed password
+        const isPasswordCorrect = await bcrypt.compare(
+            password,
+            user.password
+        );
+
+        // 5. Check password
+        if (!isPasswordCorrect) {
+            return res.status(401).json({
+                message: "Invalid password",
+            });
+        }
+
+        // 6. Login successful
+        res.status(200).json({
+            message: "Login successful",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+            },
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: "Server error",
+        });
+    }
+};
+
+
 module.exports = {
     registerUser,
+    loginUser,
 };

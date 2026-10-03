@@ -2,6 +2,13 @@ const mongoose = require("mongoose");
 
 const customerSchema = new mongoose.Schema(
     {
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+            unique: true,
+        },
+
         name: {
             type: String,
             required: true,
@@ -11,20 +18,20 @@ const customerSchema = new mongoose.Schema(
         email: {
             type: String,
             required: true,
-            unique: true,
-            trim: true,
             lowercase: true,
+            trim: true,
         },
 
         phone: {
             type: String,
-            required: true,
             trim: true,
+            default: "",
         },
 
         address: {
             type: String,
             trim: true,
+            default: "",
         },
     },
     {
@@ -32,6 +39,4 @@ const customerSchema = new mongoose.Schema(
     }
 );
 
-const Customer = mongoose.model("Customer", customerSchema);
-
-module.exports = Customer;
+module.exports = mongoose.model("Customer", customerSchema);

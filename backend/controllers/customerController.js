@@ -1,77 +1,41 @@
 const Customer = require("../models/Customer");
 
-
-// CREATE CUSTOMER
-const createCustomer = async (req, res) => {
+const getMyCustomerProfile = async (req, res) => {
     try {
-        const { name, email, phone, address } = req.body;
-
-        const customer = await Customer.create({
-            name,
-            email,
-            phone,
-            address,
+        const customer = await Customer.findOne({
+            user: req.user._id,
         });
-
-        res.status(201).json({
-            message: "Customer created successfully",
-            customer,
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: "Failed to create customer",
-            error: error.message,
-        });
-    }
-};
-
-
-// GET ALL CUSTOMERS
-const getCustomers = async (req, res) => {
-    try {
-        const customers = await Customer.find();
-
-        res.status(200).json({
-            customers,
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: "Failed to get customers",
-            error: error.message,
-        });
-    }
-};
-
-
-// GET SINGLE CUSTOMER
-const getCustomerById = async (req, res) => {
-    try {
-        const customer = await Customer.findById(req.params.id);
 
         if (!customer) {
             return res.status(404).json({
-                message: "Customer not found",
+                message: "Customer profile not found",
             });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             customer,
         });
     } catch (error) {
-        res.status(500).json({
-            message: "Failed to get customer",
-            error: error.message,
+        console.error("Get profile error:", error);
+
+        return res.status(500).json({
+            message: "Failed to get customer profile",
         });
     }
 };
 
-
-// UPDATE CUSTOMER
-const updateCustomer = async (req, res) => {
+const updateMyCustomerProfile = async (req, res) => {
     try {
-        const customer = await Customer.findByIdAndUpdate(
-            req.params.id,
-            req.body,
+        const { phone, address } = req.body;
+
+        const customer = await Customer.findOneAndUpdate(
+            {
+                user: req.user._id,
+            },
+            {
+                phone: phone ?? "",
+                address: address ?? "",
+            },
             {
                 new: true,
                 runValidators: true,
@@ -80,50 +44,24 @@ const updateCustomer = async (req, res) => {
 
         if (!customer) {
             return res.status(404).json({
-                message: "Customer not found",
+                message: "Customer profile not found",
             });
         }
 
-        res.status(200).json({
-            message: "Customer updated successfully",
+        return res.status(200).json({
+            message: "Profile updated successfully",
             customer,
         });
     } catch (error) {
-        res.status(500).json({
-            message: "Failed to update customer",
-            error: error.message,
+        console.error("Update profile error:", error);
+
+        return res.status(500).json({
+            message: "Failed to update profile",
         });
     }
 };
-
-
-// DELETE CUSTOMER
-const deleteCustomer = async (req, res) => {
-    try {
-        const customer = await Customer.findByIdAndDelete(req.params.id);
-
-        if (!customer) {
-            return res.status(404).json({
-                message: "Customer not found",
-            });
-        }
-
-        res.status(200).json({
-            message: "Customer deleted successfully",
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: "Failed to delete customer",
-            error: error.message,
-        });
-    }
-};
-
 
 module.exports = {
-    createCustomer,
-    getCustomers,
-    getCustomerById,
-    updateCustomer,
-    deleteCustomer,
+    getMyCustomerProfile,
+    updateMyCustomerProfile,
 };

@@ -63,11 +63,11 @@ export default function SignIn() {
 
     return (
         <main className="relative flex items-center min-h-screen bg-slate-900 px-8 overflow-hidden">
-            <div className="absolute top-[35%] right-[35%] h-60 w-60 rounded-full bg-pink-500 opacity-30 blur-xl"></div>
-            <div className="absolute bottom-1/4 left-[38%] h-60 w-60 rounded-full bg-blue-500 opacity-30 blur-xl"></div>
+            <div className="absolute top-[35%] right-[35%] h-60 w-full max-w-md rounded-full bg-pink-500 opacity-30 blur-xl"></div>
+            <div className="absolute bottom-1/4 left-[38%] h-60 w-full max-w-md rounded-full bg-blue-500 opacity-30 blur-xl"></div>
 
 
-            <div className="relative text-white w-full max-w-md mx-auto bg-white/15 p-8 rounded-[20px] shadow-md opacity-50 border border-white/40 hover:border-white/20 hover:bg-white/25 hover:shadow-purple-500/10 duration-500 transition-all hover:-translate-y-2">
+            <div className="relative text-white w-full max-w-md mx-auto bg-white/15 p-8 rounded-[20px] shadow-md opacity-50 border border-white/40 hover:border-white/20 hover:bg-white/25 hover:shadow-purple-500/10 duration-500 transition-all ease-out hover:scale-105 hover:-translate-y-2">
 
                 <h1 className="text-[25px] font-bold text-center mb-6">
                     Signin
@@ -126,7 +126,7 @@ export default function SignIn() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full max-w-md bg-blue-900 text-white  py-2 rounded-[10px] border border-white/50 font-medium disabled:opacity-50"
+                        className="w-full max-w-md bg-blue-900 text-white  py-2 rounded-[10px] border border-white/50 font-medium hover:bg-blue-500 hover:-translate-y-2 hover:border-blue-500 transition-all duration-500"
                     >
                         {loading ? "Signing in..." : "SignIn"}
                     </button>
